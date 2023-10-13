@@ -1,0 +1,9 @@
+version: '1.0'
+
+services:
+  mqttx-web:
+    image: emqx/mqttx-web
+    restart: always
+    ports:
+      - 8085:80
+    

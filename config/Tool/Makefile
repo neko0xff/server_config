@@ -1,6 +1,6 @@
 CC1:=docker compose
 
-.PHONY: build up logs stop 
+.PHONY: build up logs stop clean 
 
 all: build
 
