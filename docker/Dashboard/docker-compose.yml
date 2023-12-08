@@ -16,7 +16,7 @@ services:
     restart: always
     environment:
       PMA_ARBITRARY: 1
-      PMA_ABSOLUTE_URI: https://127.0.0.1/phpmyadmin
+      #PMA_ABSOLUTE_URI: https://127.0.0.1/phpmyadmin
     ports: 
        - 8083:80
     volumes:
