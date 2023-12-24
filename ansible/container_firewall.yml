@@ -50,4 +50,17 @@
         zone: public
         permanent: true
         state: enabled
+    # task 7 
+    - name: "Firewall Setup : 8086/tcp"
+      firewalld:
+        port: 8086/tcp
+        zone: public
+        permanent: true
+        state: enabled
+    # task 8
+    - name: "Reload firewalld"
+      ansible.builtin.service:
+         name: firewalld
+         state: reloaded
+
   gather_facts: false

@@ -29,4 +29,9 @@
         zone: public
         permanent: true
         state: enabled  
+    # task 5
+    - name: "Reload firewalld"
+      ansible.builtin.service:
+         name: firewalld
+         state: reloaded
   gather_facts: false
