@@ -14,13 +14,13 @@ services:
   phpmyadmin:
     image: phpmyadmin
     restart: always
-    environment:
-      PMA_ARBITRARY: 1
-      #PMA_ABSOLUTE_URI: https://127.0.0.1/phpmyadmin
     ports: 
        - 8083:80
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      PMA_ARBITRARY: 1
+      #PMA_ABSOLUTE_URI: https://127.0.0.1/phpmyadmin
     
   adminer:
     image: adminer:latest
@@ -29,6 +29,24 @@ services:
        - 8084:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+    librenms:
+      image: jarischaefer/docker-librenms
+      restart: always
+      ports:
+        - '8085:80'
+      volumes:
+        - ./librenms_data/logs:/opt/librenms/logs
+        - ./librenms_data/rrd:/opt/librenms/rrd
+      environment:
+          APP_KEY: base64:NA......................................SdA=
+          DB_HOST: 192.168.0.1
+          DB_USER: [you_username]
+          DB_PASS: [you_password]
+          DB_NAME: librenms_db
+          POLLERS: 16
+          BASE_URL: http://192.168.0.1
+          TZ: Asia/Taipei
 
 volumes:
   portainer_data:
