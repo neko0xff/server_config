@@ -36,8 +36,8 @@ services:
     ports:
       - '8085:80' 
     volumes:
-      - ./librenms_data/logs:/opt/librenms/logs 
-      - ./librenms_data/rrd:/opt/librenms/rrd
+      - /opt/librenms/logs:/opt/librenms/logs 
+      - /opt/librenms/rrd:/opt/librenms/rrd
     environment:
       APP_KEY: base64:NA......................................SdA= 
       DB_HOST: 192.168.0.1  
