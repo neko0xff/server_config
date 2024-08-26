@@ -1,34 +1,24 @@
-version: '1.0'
+name: librenms
 
 services:
-  portainer:
-    image: portainer/portainer-ce
-    restart: always
-    ports:
-       - 8000:8000
-       - 9000:9000
+  db:
+    image: mariadb:10
+    container_name: librenms_db
+    command:
+      - "mysqld"
+      - "--innodb-file-per-table=1"
+      - "--lower-case-table-names=0"
+      - "--character-set-server=utf8mb4"
+      - "--collation-server=utf8mb4_unicode_ci"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
-    
-  phpmyadmin:
-    image: phpmyadmin
-    restart: always
-    ports: 
-       - 8083:80
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - "./db:/var/lib/mysql"
     environment:
-      PMA_ARBITRARY: 1
-      #PMA_ABSOLUTE_URI: https://127.0.0.1/phpmyadmin
-    
-  adminer:
-    image: adminer:latest
+      - "TZ=${TZ}"
+      - "MARIADB_RANDOM_ROOT_PASSWORD=yes"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE}"
+      - "MYSQL_USER=${MYSQL_USER}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
     restart: always
-    ports: 
-       - 8084:8080
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
 
   redis:
     image: redis:7.2-alpine
@@ -41,10 +31,9 @@ services:
     image: crazymax/msmtpd:latest
     container_name: librenms_msmtpd
     env_file:
-      - "/opt/librenms/msmtpd.env"
+      - "./msmtpd.env"
     restart: always
 
-  # debug: `docker compose exec --user librenms librenms php validate.php`
   librenms:
     image: librenms/librenms:latest
     container_name: librenms
@@ -54,20 +43,21 @@ services:
       - NET_RAW
     ports:
       - target: 8000
-        published: 8000
+        published: 8005
         protocol: tcp
     depends_on:
+      - db
       - redis
       - msmtpd
     volumes:
-      - "/opt/librenms:/data"
+      - "./librenms:/data"
     env_file:
-      - "/opt/librenms/librenms.env"
+      - "./librenms.env"
     environment:
       - "TZ=${TZ}"
       - "PUID=${PUID}"
       - "PGID=${PGID}"
-      - "DB_HOST=${DB_address}"
+      - "DB_HOST=db"
       - "DB_NAME=${MYSQL_DATABASE}"
       - "DB_USER=${MYSQL_USER}"
       - "DB_PASSWORD=${MYSQL_PASSWORD}"
@@ -85,14 +75,14 @@ services:
       - librenms
       - redis
     volumes:
-      - "/opt/librenms:/data"
+      - "./librenms:/data"
     env_file:
-      - "/opt/librenms/librenms.env"
+      - "./librenms.env"
     environment:
       - "TZ=${TZ}"
       - "PUID=${PUID}"
       - "PGID=${PGID}"
-      - "DB_HOST=${DB_address}"
+      - "DB_HOST=db"
       - "DB_NAME=${MYSQL_DATABASE}"
       - "DB_USER=${MYSQL_USER}"
       - "DB_PASSWORD=${MYSQL_PASSWORD}"
@@ -119,14 +109,14 @@ services:
         published: 514
         protocol: udp
     volumes:
-      - "/opt/librenms:/data"
+      - "./librenms:/data"
     env_file:
-      - "/opt/librenms/librenms.env"
+      - "./librenms.env"
     environment:
       - "TZ=${TZ}"
       - "PUID=${PUID}"
       - "PGID=${PGID}"
-      - "DB_HOST=${DB_address}"
+      - "DB_HOST=db"
       - "DB_NAME=${MYSQL_DATABASE}"
       - "DB_USER=${MYSQL_USER}"
       - "DB_PASSWORD=${MYSQL_PASSWORD}"
@@ -152,21 +142,17 @@ services:
         published: 162
         protocol: udp
     volumes:
-      - "/opt/librenms:/data"
+      - "./librenms:/data"
     env_file:
-      - "/opt/librenms/librenms.env"
+      - "./librenms.env"
     environment:
       - "TZ=${TZ}"
       - "PUID=${PUID}"
       - "PGID=${PGID}"
-      - "DB_HOST=${DB_address}"
+      - "DB_HOST=db"
       - "DB_NAME=${MYSQL_DATABASE}"
       - "DB_USER=${MYSQL_USER}"
       - "DB_PASSWORD=${MYSQL_PASSWORD}"
       - "DB_TIMEOUT=60"
       - "SIDECAR_SNMPTRAPD=1"
     restart: always
-
-volumes:
-  portainer_data:
-    external: false
