@@ -40,7 +40,7 @@ services:
     image: crazymax/msmtpd:latest
     container_name: librenms_msmtpd
     env_file:
-      - "/opt/librenms/msmtpd.env"
+      - "./msmtpd.env"
     restart: always
 
   # debug: `docker compose exec --user librenms librenms php validate.php`
