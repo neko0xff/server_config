@@ -53,7 +53,7 @@ services:
       - NET_RAW
     ports:
       - target: 8000
-        published: 8000
+        published: 8005
         protocol: tcp
     depends_on:
       - redis
