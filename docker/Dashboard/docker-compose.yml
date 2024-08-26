@@ -53,7 +53,7 @@ services:
       - NET_RAW
     ports:
       - target: 8000
-        published: 8005
+        published: 8085
         protocol: tcp
     depends_on:
       - redis
@@ -67,6 +67,7 @@ services:
       - "PUID=${PUID}"
       - "PGID=${PGID}"
       - "DB_HOST=${DB_address}"
+      - "DB_PORT=3306"
       - "DB_NAME=${MYSQL_DATABASE}"
       - "DB_USER=${MYSQL_USER}"
       - "DB_PASSWORD=${MYSQL_PASSWORD}"
@@ -92,6 +93,7 @@ services:
       - "PUID=${PUID}"
       - "PGID=${PGID}"
       - "DB_HOST=${DB_address}"
+      - "DB_PORT=3306"
       - "DB_NAME=${MYSQL_DATABASE}"
       - "DB_USER=${MYSQL_USER}"
       - "DB_PASSWORD=${MYSQL_PASSWORD}"
@@ -126,6 +128,7 @@ services:
       - "PUID=${PUID}"
       - "PGID=${PGID}"
       - "DB_HOST=${DB_address}"
+      - "DB_PORT=3306"
       - "DB_NAME=${MYSQL_DATABASE}"
       - "DB_USER=${MYSQL_USER}"
       - "DB_PASSWORD=${MYSQL_PASSWORD}"
@@ -159,6 +162,7 @@ services:
       - "PUID=${PUID}"
       - "PGID=${PGID}"
       - "DB_HOST=${DB_address}"
+      - "DB_PORT=3306"
       - "DB_NAME=${MYSQL_DATABASE}"
       - "DB_USER=${MYSQL_USER}"
       - "DB_PASSWORD=${MYSQL_PASSWORD}"
