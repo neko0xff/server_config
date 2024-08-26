@@ -30,6 +30,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
+  # debug: `docker compose exec --user librenms librenms php validate.php`
   librenms:
     image: librenms/librenms
     restart: always
@@ -39,7 +40,8 @@ services:
       - /opt/librenms/logs:/opt/librenms/logs 
       - /opt/librenms/rrd:/opt/librenms/rrd
     environment:
-      APP_KEY: base64:NA......................................SdA= 
+      # 密鑰輸出: `sudo docker run --rm jarischaefer/docker-librenms generate_key`
+      # APP_KEY: base64:NA......................................SdA= 
       DB_HOST: 192.168.0.1  
       DB_USER: your_username  
       DB_PASS: your_password  
