@@ -61,7 +61,7 @@ services:
     volumes:
       - "/opt/librenms:/data"
     env_file:
-      - "/opt/librenms/librenms.env"
+      - "./librenms.env"
     environment:
       - "TZ=${TZ}"
       - "PUID=${PUID}"
@@ -86,7 +86,7 @@ services:
     volumes:
       - "/opt/librenms:/data"
     env_file:
-      - "/opt/librenms/librenms.env"
+      - "./librenms.env"
     environment:
       - "TZ=${TZ}"
       - "PUID=${PUID}"
@@ -120,7 +120,7 @@ services:
     volumes:
       - "/opt/librenms:/data"
     env_file:
-      - "/opt/librenms/librenms.env"
+      - "./librenms.env"
     environment:
       - "TZ=${TZ}"
       - "PUID=${PUID}"
@@ -153,7 +153,7 @@ services:
     volumes:
       - "/opt/librenms:/data"
     env_file:
-      - "/opt/librenms/librenms.env"
+      - "./librenms.env"
     environment:
       - "TZ=${TZ}"
       - "PUID=${PUID}"
