@@ -31,7 +31,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   librenms:
-    image: jarischaefer/docker-librenms
+    image: librenms/librenms
     restart: always
     ports:
       - '8085:80' 
