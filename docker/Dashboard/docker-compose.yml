@@ -30,7 +30,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-    librenms:
+  librenms:
       image: jarischaefer/docker-librenms
       restart: always
       ports:
