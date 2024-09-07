@@ -68,10 +68,29 @@ services:
       - "PGID=${PGID}"
       - "DB_HOST=${DB_address}"
       - "DB_PORT=3306"
-      - "DB_NAME=${MYSQL_DATABASE}"
+      - "DB_NAME=${Librenms_Librenms_MYSQL_DATABASE}"
       - "DB_USER=${MYSQL_USER}"
       - "DB_PASSWORD=${MYSQL_PASSWORD}"
       - "DB_TIMEOUT=60"
+    restart: always
+
+  redmine:
+    image: redmine/redmine:alpine
+    container_name: redmine
+    ports:
+       - 8086:3000
+    volumes:
+       - "/opt/redmine/redmine_file:/home/redmine/data"
+    environment:
+      - "REDMINE_DB_MYSQL=${DB_address}"
+      - "REDMINE_DB_NAME=${Redmine_DB_NAME}"
+      - "REDMINE_DB_USERNAME=${MYSQL_USER}"
+      - "REDMINE_DB_PASSWORD=${MYSQL_PASSWORD}"
+        # - "REDMINE_EMAIL=redmine@example.com"
+        # - "SMTP_HOST=smtp.gmail.com"
+        # - "SMTP_PORT= 587"
+        # - "SMTP_USER=<email_account>"
+        # - "SMTP_PASSWORD=<email_password>"
     restart: always
 
   dispatcher:
@@ -94,7 +113,7 @@ services:
       - "PGID=${PGID}"
       - "DB_HOST=${DB_address}"
       - "DB_PORT=3306"
-      - "DB_NAME=${MYSQL_DATABASE}"
+      - "DB_NAME=${Librenms_MYSQL_DATABASE}"
       - "DB_USER=${MYSQL_USER}"
       - "DB_PASSWORD=${MYSQL_PASSWORD}"
       - "DB_TIMEOUT=60"
@@ -129,7 +148,7 @@ services:
       - "PGID=${PGID}"
       - "DB_HOST=${DB_address}"
       - "DB_PORT=3306"
-      - "DB_NAME=${MYSQL_DATABASE}"
+      - "DB_NAME=${Librenms_MYSQL_DATABASE}"
       - "DB_USER=${MYSQL_USER}"
       - "DB_PASSWORD=${MYSQL_PASSWORD}"
       - "DB_TIMEOUT=60"
@@ -163,7 +182,7 @@ services:
       - "PGID=${PGID}"
       - "DB_HOST=${DB_address}"
       - "DB_PORT=3306"
-      - "DB_NAME=${MYSQL_DATABASE}"
+      - "DB_NAME=${Librenms_MYSQL_DATABASE}"
       - "DB_USER=${MYSQL_USER}"
       - "DB_PASSWORD=${MYSQL_PASSWORD}"
       - "DB_TIMEOUT=60"
