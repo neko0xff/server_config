@@ -1,31 +1,30 @@
-
 services:
   portainer:
     image: portainer/portainer-ce
     restart: always
     ports:
-       - 8000:8000
-       - 9000:9000
+      - 8000:8000
+      - 9000:9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
-    
+
   phpmyadmin:
     image: phpmyadmin
     restart: always
-    ports: 
-       - 8083:80
+    ports:
+      - 8083:80
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       PMA_ARBITRARY: 1
       #PMA_ABSOLUTE_URI: https://127.0.0.1/phpmyadmin
-    
+
   adminer:
     image: adminer:latest
     restart: always
-    ports: 
-       - 8084:8080
+    ports:
+      - 8084:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
@@ -74,24 +73,24 @@ services:
       - "DB_TIMEOUT=60"
     restart: always
 
-  redmine:
-    image: redmine:alpine
-    container_name: redmine
-    ports:
-       - 8086:3000
-    volumes:
-       - "/opt/redmine/redmine_file:/home/redmine/data"
-    environment:
-      - "REDMINE_DB_MYSQL=${DB_address}"
-      - "REDMINE_DB_NAME=${Redmine_DB_NAME}"
-      - "REDMINE_DB_USERNAME=${MYSQL_USER}"
-      - "REDMINE_DB_PASSWORD=${MYSQL_PASSWORD}"
+  # redmine:
+    # image: redmine:alpine
+    # container_name: redmine
+    # ports:
+      #  - 8086:3000
+    # volumes:
+        #   - "/opt/redmine/redmine_file:/home/redmine/data"
+    # environment:
+        # - "REDMINE_DB_MYSQL=${DB_address}"
+        # - "REDMINE_DB_NAME=${Redmine_DB_NAME}"
+        # - "REDMINE_DB_USERNAME=${MYSQL_USER}"
+        # - "REDMINE_DB_PASSWORD=${MYSQL_PASSWORD}"
         # - "REDMINE_EMAIL=redmine@example.com"
         # - "SMTP_HOST=smtp.gmail.com"
         # - "SMTP_PORT= 587"
         # - "SMTP_USER=<email_account>"
         # - "SMTP_PASSWORD=<email_password>"
-    restart: always
+    #restart: always
 
   dispatcher:
     image: librenms/librenms:latest
