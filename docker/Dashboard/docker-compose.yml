@@ -75,7 +75,7 @@ services:
     restart: always
 
   redmine:
-    image: redmine/redmine:alpine
+    image: redmine:alpine
     container_name: redmine
     ports:
        - 8086:3000
