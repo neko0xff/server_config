@@ -68,7 +68,7 @@ services:
       - "PGID=${PGID}"
       - "DB_HOST=${DB_address}"
       - "DB_PORT=3306"
-      - "DB_NAME=${Librenms_Librenms_MYSQL_DATABASE}"
+      - "DB_NAME=${Librenms_MYSQL_DATABASE}"
       - "DB_USER=${MYSQL_USER}"
       - "DB_PASSWORD=${MYSQL_PASSWORD}"
       - "DB_TIMEOUT=60"
